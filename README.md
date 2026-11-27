@@ -12,7 +12,7 @@ python dataset_check.py examples/orders_invalid.csv --schema examples/schema.jso
 python -m unittest -v
 ```
 
-The clean sample passes with three rows.The second sample reports six issues across five rows, including a duplicated order ID, a missing quantity, and an unknown sales channel.
+The clean sample passes with three rows. The second sample reports six issues across five rows, including a duplicated order ID, a missing quantity, and an unknown sales channel.
 
 ```json
 {"row": 2, "column": "order_id", "issue": "duplicate"}
@@ -31,4 +31,4 @@ Create a JSON file with a rule for each column. The header must contain the same
 }
 ```
 
-The project targets samll batch datasets. It retains unique values and row issues in memory for the duration of the run. Domain rules such as a minimum acceptable quantity can be added as a follow-up with a corresponding sample and test.
+The project targets small batch datasets. It retains unique values and row issues in memory for the duration of the run. Domain rules such as a minimum acceptable quantity can be added as a follow-up with a corresponding sample and test.

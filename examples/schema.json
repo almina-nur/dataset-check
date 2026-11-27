@@ -1,0 +1,6 @@
+{
+  "order_id": {"type": "integer", "required": true, "unique": true},
+  "quantity": {"type": "integer", "required": true},
+  "unit_price": {"type": "number", "required": true},
+  "channel": {"type": "text", "required": true, "allowed": ["web", "store"]}
+}

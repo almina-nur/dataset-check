@@ -63,6 +63,21 @@ class DatasetCheckTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2)
         self.assertIn("unique must be true or false", result.stderr)
 
+    def test_duplicate_schema_keys(self):
+        cases = {
+            "order_id": '{"order_id": {"type": "integer"}, "order_id": {"type": "text"}}',
+            "unique": '{"order_id": {"type": "integer", "unique": true, "unique": false}}',
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            schema = Path(directory) / "duplicate.json"
+            for key, contents in cases.items():
+                with self.subTest(key=key):
+                    schema.write_text(contents, encoding="utf-8")
+                    result = run_check(EXAMPLES / "orders_valid.csv", schema)
+                    self.assertEqual(result.returncode, 2)
+                    self.assertIn(f"Duplicate schema key: {key!r}", result.stderr)
+                    self.assertEqual(result.stdout, "")
+
 
 if __name__ == "__main__":
     unittest.main()

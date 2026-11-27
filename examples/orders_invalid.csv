@@ -1,0 +1,6 @@
+order_id,quantity,unit_price,channel
+101,2,19.90,web
+101,1,12.50,store
+103,,7.25,phone
+104,many,NaN,web
+105,2,9.50

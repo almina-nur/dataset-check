@@ -9,8 +9,17 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 
+def reject_duplicate_keys(pairs):
+    obj = {}
+    for key, value in pairs:
+        if key in obj:
+            raise ValueError(f"Duplicate schema key: {key!r}.")
+        obj[key] = value
+    return obj
+
+
 def load_rules(path):
-    rules = json.loads(path.read_text(encoding="utf-8-sig"))
+    rules = json.loads(path.read_text(encoding="utf-8-sig"), object_pairs_hook=reject_duplicate_keys)
     if not isinstance(rules, dict) or not rules:
         raise ValueError("The schema must be a non-empty object of column rules.")
     for name, rule in rules.items():
